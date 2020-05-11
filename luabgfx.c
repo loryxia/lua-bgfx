@@ -14,7 +14,7 @@
 #include "luabgfx.h"
 #include "simplelock.h"
 #include "bgfx_interface.h"
-#include "bgfx_alloc.h"
+//#include "bgfx_alloc.h"
 
 #if BGFX_API_VERSION != 106
 #   error BGFX_API_VERSION mismatch
