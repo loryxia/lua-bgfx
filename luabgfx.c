@@ -16,7 +16,7 @@
 #include "bgfx_interface.h"
 //#include "bgfx_alloc.h"
 
-#if BGFX_API_VERSION != 106
+#if BGFX_API_VERSION != 107
 #   error BGFX_API_VERSION mismatch
 #endif
 
@@ -4661,6 +4661,13 @@ lgetLog(lua_State *L) {
 	return 1;
 }
 
+static int
+lrenderFrame(lua_State *L) {
+    bgfx_render_frame_t ret = BGFX(render_frame)(-1);
+    lua_pushinteger(L, ret);
+    return 1;
+}
+
 LUAMOD_API int
 luaopen_bgfx(lua_State *L) {
 	luaL_checkversion(L);
@@ -4773,7 +4780,8 @@ luaopen_bgfx(lua_State *L) {
 		{ "vertex_layout_stride", lvertexLayoutStride },
 		{ "copy_data", lcopy_data},
 		{ "get_log", lgetLog },
-
+        { "render_frame", lrenderFrame },
+        
 		{ NULL, NULL },
 	};
 	luaL_newlib(L, l);
