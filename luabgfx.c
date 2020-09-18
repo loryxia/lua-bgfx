@@ -14,7 +14,7 @@
 #include "luabgfx.h"
 #include "simplelock.h"
 #include "bgfx_interface.h"
-//#include "bgfx_alloc.h"
+#include "bgfx_alloc.h"
 #include "transient_buffer.h"
 
 #if BGFX_API_VERSION != 109
@@ -591,7 +591,7 @@ linit(lua_State *L) {
 		init.platformData.backBufferDS = getfield(L, "backBufferDS");
 
 		//if (init.debug) {
-			//luabgfx_getalloc(&init.allocator);
+			luabgfx_getalloc(&init.allocator);
 		//}
 	}
 
@@ -998,9 +998,9 @@ lgetStats(lua_State *L) {
 static int
 lgetMemory(lua_State *L) {
 	int64_t memory = 0;
-	//luabgfx_info(&memory);
-	//lua_pushinteger(L, memory);
-	return 0;
+	luabgfx_info(&memory);
+	lua_pushinteger(L, memory);
+	return 1;
 }
 
 /*
@@ -4632,6 +4632,13 @@ lgetLog(lua_State *L) {
 	return 1;
 }
 
+static int
+lrenderFrame(lua_State *L) {
+    bgfx_render_frame_t ret = BGFX(render_frame)(-1);
+    lua_pushinteger(L, ret);
+    return 1;
+}
+
 LUAMOD_API int
 luaopen_bgfx(lua_State *L) {
 	luaL_checkversion(L);
@@ -4746,7 +4753,7 @@ luaopen_bgfx(lua_State *L) {
 		{ "export_vertex_layout", lexportVertexLayout },
 		{ "vertex_layout_stride", lvertexLayoutStride },
 		{ "get_log", lgetLog },
-
+		{ "render_frame", lrenderFrame },
 		{ NULL, NULL },
 	};
 	luaL_newlib(L, l);
