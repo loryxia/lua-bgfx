@@ -17,7 +17,7 @@
 #include "bgfx_alloc.h"
 #include "transient_buffer.h"
 
-#if BGFX_API_VERSION != 109
+#if BGFX_API_VERSION != 110
 #   error BGFX_API_VERSION mismatch
 #endif
 
@@ -803,7 +803,7 @@ push_texture_formats(lua_State *L, const uint16_t *formats) {
 		CAPSTF(CUBE_SRGB)        //Texture as sRGB format is supported.
 		CAPSTF(CUBE_EMULATED)    //Texture format is emulated.
 		CAPSTF(VERTEX)           //Texture format can be used from vertex shader.
-		CAPSTF(IMAGE)            //Texture format can be used as image from compute shader.
+		//CAPSTF(IMAGE)            //Texture format can be used as image from compute shader.
 		CAPSTF(FRAMEBUFFER)      //Texture format can be used as frame buffer.
 		CAPSTF(FRAMEBUFFER_MSAA) //Texture format can be used as MSAA frame buffer.
 		CAPSTF(MSAA)             //Texture can be sampled as MSAA.
