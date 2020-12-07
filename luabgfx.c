@@ -4708,6 +4708,13 @@ linitEncoder(lua_State *L) {
 }
 
 LUAMOD_API int
+lrenderFrame(lua_State *L) {
+    bgfx_render_frame_t ret = BGFX(render_frame)(-1);
+    lua_pushinteger(L, ret);
+    return 1;
+}
+
+LUAMOD_API int
 luaopen_bgfx(lua_State *L) {
 	luaL_checkversion(L);
 	init_interface(L);
@@ -4859,6 +4866,7 @@ luaopen_bgfx(lua_State *L) {
 		{ "encoder_end", lendEncoder },
 		{ "encoder_init", NULL },
 
+		{ "render_frame", lrenderFrame },
 		{ NULL, NULL },
 	};
 	luaL_newlib(L, l);
